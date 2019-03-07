@@ -3,8 +3,10 @@ package com.cldellow.hashmatcher
 import java.nio._
 
 object HashMatcher {
-  def createIntHash(needles: String*): (Array[Byte], Int) => Boolean = {
-    val bits = math.ceil(math.log(needles.length + 1) / math.log(2)).toInt
+  def createIntHash(needles: String*): (Array[Byte], Int) => Boolean = createIntHash(5000)(needles:_*)
+
+  def createIntHash(timeout: Int)(needles: String*): (Array[Byte], Int) => Boolean = {
+    val bits = (math.ceil(math.log(needles.length + 1) / math.log(2)).toInt) + 5
     val slots = math.pow(2, bits).toInt
 
     require(needles.length == needles.toSet.size, s"duplicates aren't permitted")
@@ -62,7 +64,7 @@ object HashMatcher {
         factor = factor + 1
       }
 
-      if((System.nanoTime - ns) / 1e6 > 5000) {
+      if((System.nanoTime - ns) / 1e6 > timeout) {
         keepGoing = false
         sys.error("More than threshold seconds, bailing")
       }
