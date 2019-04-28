@@ -12,8 +12,7 @@ libraryDependencies ++= Seq(
   "org.scalacheck" %% "scalacheck" % "1.14.0" % "test",
   "dk.brics" % "automaton" % "1.12-1",
   "de.siegmar" % "fastcsv" % "1.0.3",
-  "com.cldellow" %% "warc" % "0.0.2",
-  "com.cldellow" % "gzip" % "0.0.2",
+  "com.cldellow" %% "warc-framework" % "0.0.1",
   "com.hankcs" % "aho-corasick-double-array-trie" % "1.2.1"
 )
 
