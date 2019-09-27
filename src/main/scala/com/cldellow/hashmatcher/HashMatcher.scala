@@ -3,6 +3,7 @@ package com.cldellow.hashmatcher
 import java.nio._
 
 object HashMatcher {
+  var ThresholdMs = 5000L
   def createIntHash(needles: String*): (Array[Byte], Int) => Boolean = {
     val bits = math.ceil(math.log(needles.length + 1) / math.log(2)).toInt
     val slots = math.pow(2, bits).toInt
@@ -62,7 +63,7 @@ object HashMatcher {
         factor = factor + 1
       }
 
-      if((System.nanoTime - ns) / 1e6 > 5000) {
+      if((System.nanoTime - ns) / 1e6 > ThresholdMs) {
         keepGoing = false
         sys.error("More than threshold seconds, bailing")
       }
